@@ -1,6 +1,6 @@
-# 🎵 Canciones con IA — 2º Bachillerato
+# 🎵 Canciones con IA — 1º Bachillerato
 
-Proyecto de creación musical con inteligencia artificial para la asignatura de Tecnología e Informática de 2º de Bachillerato.
+Proyecto de creación musical con inteligencia artificial para la asignatura de Informática de 1º de Bachillerato.
 
 ## 📁 Estructura del repositorio
 
