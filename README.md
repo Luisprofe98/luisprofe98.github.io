@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Canciones con IA — 2º Bachillerato</title>
-  <meta name="description" content="Proyecto de creación musical con inteligencia artificial para 2º de Bachillerato." />
+  <title>Canciones con IA — 1º Bachillerato</title>
+  <meta name="description" content="Proyecto de creación musical con inteligencia artificial para 1º de Bachillerato." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
@@ -1050,19 +1050,19 @@ Estructura: intro – estrofa – coro – estrofa – coro – puente – coro 
       <div class="footer-brand">Canciones IA</div>
       <div class="footer-meta">
         <strong>Proyecto:</strong> Creación Musical con Inteligencia Artificial<br />
-        <strong>Curso:</strong> 2º Bachillerato · Curso 2024–2025<br />
+        <strong>Curso:</strong> 1º Bachillerato · Curso 2025–2026<br />
         <strong>Materia:</strong> Tecnología e Informática<br />
-        <strong>Centro:</strong> IES [Nombre del centro]
+        <strong>Centro:</strong> IES Maria Auxiliadora
       </div>
     </div>
     <div class="footer-credits">
-      Desarrollado con ❤️ y IA<br />
+      Desarrollado enteramente con sudor y sangre humanas<br />
       Alojado en <strong>GitHub Pages</strong><br />
       Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es"
                   target="_blank" rel="noopener noreferrer"
                   style="color:var(--accent);text-decoration:none;">CC BY-NC-SA 4.0</a><br />
       <span style="font-size:.75rem;color:var(--muted);margin-top:.5rem;display:block;">
-        © 2025 · Proyecto educativo sin ánimo de lucro
+        © 2026 · Proyecto educativo sin ánimo de lucro
       </span>
     </div>
   </div>
