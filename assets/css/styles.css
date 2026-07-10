@@ -1,0 +1,122 @@
+:root {
+  --clubox-primary: #6e1028;
+  --clubox-secondary: #9c1b3d;
+  --clubox-dark: #111111;
+  --clubox-light: #ffffff;
+  --clubox-muted: #f5f2f3;
+  --clubox-border: #e6dde0;
+  --clubox-success: #198754;
+  --clubox-warning: #ffc107;
+  --clubox-failed: #dc3545;
+}
+
+body {
+  background: var(--clubox-muted);
+  color: var(--clubox-dark);
+}
+
+a {
+  color: var(--clubox-primary);
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.btn-clubox {
+  background: var(--clubox-primary);
+  border-color: var(--clubox-primary);
+  color: var(--clubox-light);
+}
+
+.btn-clubox:hover,
+.btn-clubox:focus {
+  background: var(--clubox-secondary);
+  border-color: var(--clubox-secondary);
+  color: var(--clubox-light);
+}
+
+.btn-outline-clubox {
+  border-color: var(--clubox-primary);
+  color: var(--clubox-primary);
+}
+
+.btn-outline-clubox:hover,
+.btn-outline-clubox:focus {
+  background: var(--clubox-primary);
+  color: var(--clubox-light);
+}
+
+.card-clubox {
+  border: 1px solid var(--clubox-border);
+  border-radius: 1rem;
+}
+
+.hero-panel {
+  background: linear-gradient(135deg, var(--clubox-primary), var(--clubox-dark));
+  color: var(--clubox-light);
+  border-radius: 1.5rem;
+}
+
+.sidebar {
+  background: var(--clubox-dark);
+  color: var(--clubox-light);
+  min-height: calc(100vh - 64px);
+}
+
+.sidebar .accordion-button,
+.sidebar .list-group-item {
+  background: transparent;
+  color: var(--clubox-light);
+}
+
+.sidebar .accordion-button:not(.collapsed) {
+  background: var(--clubox-primary);
+  color: var(--clubox-light);
+}
+
+.sidebar .accordion-button::after {
+  filter: invert(1);
+}
+
+.sidebar .nav-link {
+  border-radius: .75rem;
+  color: var(--clubox-light);
+  cursor: pointer;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+  background: var(--clubox-secondary);
+  color: var(--clubox-light);
+}
+
+.page-main {
+  min-height: calc(100vh - 64px);
+}
+
+.succeed {
+  border-left: .4rem solid var(--clubox-success);
+}
+
+.warning {
+  border-left: .4rem solid var(--clubox-warning);
+}
+
+.failed {
+  border-left: .4rem solid var(--clubox-failed);
+}
+
+.text-income {
+  color: var(--clubox-success);
+}
+
+.text-expense {
+  color: var(--clubox-failed);
+}
+
+@media (max-width: 991.98px) {
+  .sidebar {
+    min-height: auto;
+  }
+}
