@@ -5,7 +5,7 @@ export function renderLogin(appRoot) {
     <main class="container py-5">
       <div class="row justify-content-center"><div class="col-md-7 col-lg-5">
         <div class="card card-clubox shadow-sm"><div class="card-body p-4">
-          <h1 class="h3 mb-2">Entrar en Clubox</h1><p class="text-muted">Usa tus credenciales de administrador.</p>
+          <h1 class="h3 mb-2">Entrar en Clubox</h1>
           <div id="alertRoot"></div>
           <form id="loginForm" class="vstack gap-3">
             <div><label class="form-label" for="emailInput">Email</label><input class="form-control" id="emailInput" type="email" required></div>
