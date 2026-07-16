@@ -14,7 +14,7 @@ export function renderShell(appRoot) {
         </div>
         <nav class="club-menu" id="menuRoot"></nav>
         <div class="club-side-foot">
-          <button class="btn btn-outline-light w-100 side-logout" id="sideLogout" type="button">Cerrar sesion</button>
+          <button class="btn btn-outline-light w-100 side-logout" id="sideLogout" type="button">Cerrar sesión</button>
         </div>
       </aside>
       <button class="club-shade" id="sideShade" type="button" aria-label="Cerrar menu"></button>
@@ -27,7 +27,7 @@ export function renderShell(appRoot) {
             <strong>${clubData.clubName}</strong>
             <span>${clubData.userName}</span>
           </div>
-          <button class="btn btn-sm btn-outline-clubox" id="headLogout" type="button">Cerrar sesion</button>
+          <button class="btn btn-sm btn-outline-clubox" id="headLogout" type="button">Cerrar sesión</button>
         </header>
         <main class="club-content flex-grow-1" id="pageRoot"></main>
       </section>
