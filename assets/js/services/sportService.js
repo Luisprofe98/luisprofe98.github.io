@@ -9,7 +9,15 @@ export async function guardarSport(dataKey, itemData, fieldList) {
   await saveItem(dataKey, saveData);
   return { valido: true, itemData: saveData };
 }
-export async function borrarSport(dataKey, itemId) { await deleteItem(dataKey, itemId); }
+export async function borrarSport(dataKey, itemId) {
+  await deleteItem(dataKey, itemId);
+  if (dataKey === "jugadores") await limpiarRel("playerTeams", "playerId", itemId);
+  if (dataKey === "equipos") {
+    await limpiarRel("playerTeams", "teamId", itemId);
+    await limpiarRel("staffTeams", "teamId", itemId);
+  }
+  if (dataKey === "tecnicos") await limpiarRel("staffTeams", "staffId", itemId);
+}
 export async function asignarTeam(dataKey, ownerKey, ownerId, teamId, cargoData = "") {
   const itemList = await fetchList(dataKey);
   if (itemList.some((itemData) => itemData[ownerKey] === ownerId && itemData.teamId === teamId)) return false;
@@ -19,3 +27,4 @@ export async function asignarTeam(dataKey, ownerKey, ownerId, teamId, cargoData 
 }
 export async function quitarTeam(dataKey, itemId) { await deleteItem(dataKey, itemId); }
 export async function guardarTemp(itemData) { const nowData = new Date().toISOString(); await saveItem("temporadas", { ...itemData, id: crypto.randomUUID(), clubId: "club_demo", createdAt: nowData, updatedAt: nowData }); }
+async function limpiarRel(dataKey, fieldName, itemId) { const itemList = await fetchList(dataKey); await Promise.all(itemList.filter((itemData) => itemData[fieldName] === itemId).map((itemData) => deleteItem(dataKey, itemData.id))); }

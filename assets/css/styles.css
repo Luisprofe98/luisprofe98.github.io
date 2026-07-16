@@ -60,6 +60,199 @@ a {
   border-radius: 1.5rem;
 }
 
+.landing-page {
+  background: var(--colorLight);
+}
+
+.landing-head {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  border-bottom: 1px solid var(--colorLine);
+  background: rgb(255 255 255 / 96%);
+  backdrop-filter: blur(12px);
+}
+
+.landing-brand {
+  color: var(--colorPrimary);
+  font-size: 1.35rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.landing-nav a,
+.landing-foot a {
+  color: var(--colorDark);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.landing-nav a:hover,
+.landing-foot a:hover {
+  color: var(--colorPrimary);
+}
+
+.landing-hero {
+  overflow: hidden;
+  background: linear-gradient(135deg, #fff 0%, var(--colorSoft) 58%, #efe0e4 100%);
+}
+
+.landing-kicker {
+  margin-bottom: .75rem;
+  color: var(--colorPrimary);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.landing-hero h1,
+.landing-section h2 {
+  font-weight: 800;
+  letter-spacing: -.035em;
+}
+
+.landing-hero h1 {
+  max-width: 11ch;
+  font-size: clamp(2.6rem, 5vw, 4.6rem);
+}
+
+.landing-lead {
+  max-width: 38rem;
+  color: #495057;
+  font-size: 1.15rem;
+  line-height: 1.65;
+}
+
+.landing-note {
+  color: #6c757d;
+  font-size: .9rem;
+}
+
+.landing-demo {
+  border: 1px solid var(--colorLine);
+  border-radius: 1.4rem;
+  box-shadow: 0 24px 50px rgb(17 17 17 / 14%);
+}
+
+.landing-section {
+  padding: 5rem 0;
+}
+
+.landing-soft {
+  background: var(--colorSoft);
+}
+
+.landing-card,
+.review-card,
+.partner-card,
+.contact-card {
+  height: 100%;
+  padding: 1.5rem;
+  border: 1px solid var(--colorLine);
+  border-radius: 1rem;
+  background: var(--colorLight);
+  box-shadow: 0 10px 26px rgb(17 17 17 / 5%);
+}
+
+.landing-card h3 {
+  font-size: 1.05rem;
+  font-weight: 750;
+}
+
+.landing-card p,
+.review-card blockquote {
+  margin-bottom: 0;
+  color: #59636d;
+}
+
+.landing-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .75rem;
+}
+
+.landing-stat-grid div {
+  min-height: 160px;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  background: var(--colorPrimary);
+  color: var(--colorLight);
+}
+
+.landing-stat-grid div:nth-child(2) {
+  background: var(--colorDark);
+}
+
+.landing-stat-grid div:nth-child(3) {
+  background: var(--colorSecond);
+}
+
+.landing-stat-grid strong,
+.landing-stat-grid span {
+  display: block;
+}
+
+.landing-stat-grid strong {
+  margin-bottom: .75rem;
+  font-size: 2.4rem;
+}
+
+.partner-card {
+  display: grid;
+  min-height: 120px;
+  place-items: center;
+  color: var(--colorPrimary);
+  font-weight: 750;
+  text-align: center;
+}
+
+.landing-indicators {
+  position: static;
+  margin: 1.5rem 0 0;
+}
+
+.landing-indicators [data-bs-target] {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: var(--colorPrimary);
+}
+
+.review-card {
+  margin: 0;
+}
+
+.review-card blockquote {
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.review-card figcaption {
+  margin-top: 1.25rem;
+  color: var(--colorPrimary);
+  font-size: .88rem;
+  font-weight: 700;
+}
+
+.landing-contact {
+  padding-bottom: 2rem;
+}
+
+.contact-card {
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.landing-foot {
+  padding: 1.5rem 0;
+  background: var(--colorDark);
+  color: var(--colorLight);
+}
+
+.landing-foot a {
+  color: var(--colorLight);
+}
+
 .club-app {
   display: flex;
   min-height: 100vh;
