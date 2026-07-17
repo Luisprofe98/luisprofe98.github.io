@@ -1,7 +1,6 @@
 export function renderModule(pageRoot, pageData) {
   pageRoot.innerHTML = `
     <section class="container-fluid px-0">
-      <p class="module-label text-uppercase small mb-2">${pageData.section}</p>
       <h1 class="h3 mb-2">${pageData.title}</h1>
       <p class="text-muted mb-4">${pageData.description}</p>
       <div class="card module-card">

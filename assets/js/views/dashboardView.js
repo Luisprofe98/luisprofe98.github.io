@@ -9,6 +9,6 @@ export async function renderDashboard(pageRoot) {
     { title: "Contabilidad", value: movList.length, route: "#/app/contabilidad" },
     { title: "Cuotas", value: feeList.length, route: "#/app/cuotas" }
   ];
-  pageRoot.innerHTML = `<section class="container-fluid px-0"><p class="module-label text-uppercase small mb-2">Inicio</p><h1 class="h3 mb-2">Panel principal</h1><p class="text-muted mb-4">Resumen de la actividad del club.</p><div class="row g-3">${cardList.map((cardData) => `<div class="col-md-6 col-xl-4"><div class="card card-clubox h-100"><div class="card-body"><p class="text-muted mb-1">${cardData.title}</p><strong class="h3 d-block mb-3">${cardData.value}</strong><button class="btn btn-sm btn-outline-clubox" data-route="${cardData.route}" type="button">Abrir</button></div></div></div>`).join("")}</div></section>`;
+  pageRoot.innerHTML = `<section class="container-fluid px-0"><h1 class="h3 mb-2">Panel principal</h1><p class="text-muted mb-4">Resumen de la actividad del club.</p><div class="row g-3">${cardList.map((cardData) => `<div class="col-md-6 col-xl-4"><div class="card card-clubox h-100"><div class="card-body"><p class="text-muted mb-1">${cardData.title}</p><strong class="h3 d-block mb-3">${cardData.value}</strong><button class="btn btn-sm btn-outline-clubox" data-route="${cardData.route}" type="button">Abrir</button></div></div></div>`).join("")}</div></section>`;
   pageRoot.querySelectorAll("[data-route]").forEach((buttonData) => buttonData.addEventListener("click", () => { window.location.hash = buttonData.dataset.route; }));
 }
