@@ -1,0 +1,73 @@
+type TournamentEntry
+  @table(name: "tournament_entries", key: "id")
+  @unique(fields: ["id", "clubId"])
+{
+  id: UUID! @default(expr: "uuidV4()")
+  club: Club! @ref(fields: "clubId")
+  clubId: UUID! @col(name: "club_id")
+  sourceInscription: Inscription
+    @ref(fields: ["sourceInscriptionId", "clubId"], references: ["id", "clubId"])
+  sourceInscriptionId: UUID @col(name: "source_inscription_id") @unique
+  firstName: String! @col(name: "first_name")
+  lastName: String! @col(name: "last_name")
+  nationalId: String! @col(name: "national_id")
+  birthDate: Date! @col(name: "birth_date")
+  phone: String
+  email: String
+  clubOrigin: String @col(name: "club_origin")
+  teamName: String @col(name: "team_name")
+  category: String
+  notes: String
+  status: String!
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}
+
+type EventAttendee
+  @table(name: "event_attendees", key: "id")
+  @unique(fields: ["id", "clubId"])
+{
+  id: UUID! @default(expr: "uuidV4()")
+  club: Club! @ref(fields: "clubId")
+  clubId: UUID! @col(name: "club_id")
+  sourceInscription: Inscription
+    @ref(fields: ["sourceInscriptionId", "clubId"], references: ["id", "clubId"])
+  sourceInscriptionId: UUID @col(name: "source_inscription_id") @unique
+  firstName: String! @col(name: "first_name")
+  lastName: String! @col(name: "last_name")
+  nationalId: String! @col(name: "national_id")
+  birthDate: Date! @col(name: "birth_date")
+  phone: String
+  email: String
+  address: String
+  organization: String
+  notes: String
+  status: String!
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}
+
+type Volunteer
+  @table(name: "volunteers", key: "id")
+  @unique(fields: ["id", "clubId"])
+{
+  id: UUID! @default(expr: "uuidV4()")
+  club: Club! @ref(fields: "clubId")
+  clubId: UUID! @col(name: "club_id")
+  sourceInscription: Inscription
+    @ref(fields: ["sourceInscriptionId", "clubId"], references: ["id", "clubId"])
+  sourceInscriptionId: UUID @col(name: "source_inscription_id") @unique
+  firstName: String! @col(name: "first_name")
+  lastName: String! @col(name: "last_name")
+  nationalId: String! @col(name: "national_id")
+  birthDate: Date! @col(name: "birth_date")
+  phone: String
+  email: String
+  address: String
+  availability: String
+  experience: String
+  notes: String
+  status: String!
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}

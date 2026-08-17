@@ -1,0 +1,49 @@
+type User @table(name: "users", key: "id") {
+  id: UUID! @default(expr: "uuidV4()")
+  firebaseUid: String! @col(name: "firebase_uid") @unique
+  email: String! @unique
+  name: String
+  systemRole: SystemRole @col(name: "system_role")
+  status: UserStatus!
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}
+
+type Club @table(name: "clubs", key: "id") {
+  id: UUID! @default(expr: "uuidV4()")
+  name: String!
+  status: ClubStatus!
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}
+
+type ClubMember
+  @table(name: "club_members", key: "id")
+  @unique(fields: ["userId", "clubId"])
+{
+  id: UUID! @default(expr: "uuidV4()")
+  user: User! @ref(fields: "userId")
+  userId: UUID! @col(name: "user_id")
+  club: Club! @ref(fields: "clubId")
+  clubId: UUID! @col(name: "club_id")
+  role: ClubRole!
+  status: MembershipStatus!
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}
+
+type Season
+  @table(name: "seasons", key: "id")
+  @unique(fields: ["id", "clubId"])
+  @unique(fields: ["clubId", "name"])
+{
+  id: UUID! @default(expr: "uuidV4()")
+  club: Club! @ref(fields: "clubId")
+  clubId: UUID! @col(name: "club_id")
+  name: String!
+  startDate: Date @col(name: "start_date")
+  endDate: Date @col(name: "end_date")
+  status: String!
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}

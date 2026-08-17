@@ -1,0 +1,54 @@
+query GetPublicForm($publicSlug: String!)
+  @auth(level: PUBLIC, insecureReason: "Public visitors must read active form definitions") {
+  forms(
+    where: { publicSlug: { eq: $publicSlug }, status: { eq: ACTIVE } }
+    limit: 1
+  ) {
+    name
+    formType
+    fields: formFields_on_form(
+      where: { status: { eq: ACTIVE } }
+      orderBy: [{ position: ASC }]
+    ) {
+      name
+      label
+      inputType: fieldType
+      required
+      position
+    }
+  }
+}
+
+mutation SubmitPublicInscription($publicSlug: String!, $submittedData: Any!)
+  @auth(level: PUBLIC, insecureReason: "Public visitors must submit active forms")
+  @transaction {
+  query
+    @redact
+    @check(expr: "response.query.forms.size() == 1", message: "Active form not found")
+    @check(
+      expr: "response.query.forms[0].formFields_on_form.filter(field, field.required).all(field, field.name in vars.submittedData && vars.submittedData[field.name] != null && vars.submittedData[field.name].matches('.*[^[:space:]].*'))"
+      message: "Required form fields are missing"
+    )
+    @check(
+      expr: "vars.submittedData.size() == response.query.forms[0].formFields_on_form.filter(field, field.name in vars.submittedData).size()"
+      message: "Unknown form field"
+    ) {
+    forms(
+      where: { publicSlug: { eq: $publicSlug }, status: { eq: ACTIVE } }
+      limit: 1
+    ) {
+      id
+      clubId
+      formFields_on_form(where: { status: { eq: ACTIVE } }) {
+        name
+        required
+      }
+    }
+  }
+  inscription_insert(data: {
+    clubId_expr: "response.query.forms[0].clubId"
+    formId_expr: "response.query.forms[0].id"
+    status: RECIBIDA
+    submittedData: $submittedData
+  })
+}

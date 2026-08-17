@@ -1,0 +1,117 @@
+mutation CreateFormField(
+  $clubId: UUID!
+  $formId: UUID!
+  $name: String!
+  $label: String!
+  $fieldType: String!
+  $position: Int!
+  $options: Any
+  $config: Any
+) @auth(level: USER) @transaction {
+  query @redact @check(
+    expr: "response.query.users.size() == 1 && response.query.users[0].clubMembers_on_user.size() == 1 && response.query.forms.size() == 1"
+    message: "Form access denied"
+  ) @check(
+    expr: "(response.query.forms[0].formType in ['DEPORTISTA', 'SOCIO'] && vars.name in ['phone', 'email', 'address']) || (response.query.forms[0].formType == 'TORNEO' && vars.name in ['phone', 'email', 'clubOrigin', 'teamName', 'category', 'notes']) || (response.query.forms[0].formType == 'EVENTO' && vars.name in ['phone', 'email', 'address', 'organization', 'notes']) || (response.query.forms[0].formType == 'VOLUNTARIO' && vars.name in ['phone', 'email', 'address', 'availability', 'experience', 'notes'])"
+    message: "Optional field does not belong to form type"
+  ) @check(
+    expr: "(vars.name == 'phone' && vars.fieldType == 'tel') || (vars.name == 'email' && vars.fieldType == 'email') || (vars.name in ['notes', 'availability', 'experience'] && vars.fieldType == 'textarea') || (vars.name in ['address', 'clubOrigin', 'teamName', 'category', 'organization'] && vars.fieldType == 'text')"
+    message: "Field input type does not match field name"
+  ) {
+    users(where: { firebaseUid: { eq_expr: "auth.uid" }, status: { eq: ACTIVE } }, limit: 1) {
+      clubMembers_on_user(where: { clubId: { eq: $clubId }, status: { eq: ACTIVE } }, limit: 1) { id }
+    }
+    forms(where: { id: { eq: $formId }, clubId: { eq: $clubId } }, limit: 1) { id formType }
+  }
+  formField_insert(data: {
+    clubId: $clubId
+    formId: $formId
+    name: $name
+    label: $label
+    fieldType: $fieldType
+    required: false
+    position: $position
+    status: ACTIVE
+    options: $options
+    config: $config
+  })
+}
+
+mutation UpdateFormField(
+  $clubId: UUID!
+  $formId: UUID!
+  $fieldId: UUID!
+  $label: String!
+  $fieldType: String!
+  $status: FormStatus!
+  $options: Any
+  $config: Any
+) @auth(level: USER) @transaction {
+  query @redact @check(
+    expr: "response.query.users.size() == 1 && response.query.users[0].clubMembers_on_user.size() == 1 && response.query.formFields.size() == 1"
+    message: "Field access denied"
+  ) @check(
+    expr: "(response.query.formFields[0].name in ['firstName', 'lastName', 'nationalId'] && vars.fieldType == 'text') || (response.query.formFields[0].name == 'birthDate' && vars.fieldType == 'date') || (response.query.formFields[0].name == 'phone' && vars.fieldType == 'tel') || (response.query.formFields[0].name == 'email' && vars.fieldType == 'email') || (response.query.formFields[0].name in ['notes', 'availability', 'experience'] && vars.fieldType == 'textarea') || (response.query.formFields[0].name in ['address', 'clubOrigin', 'teamName', 'category', 'organization'] && vars.fieldType == 'text')"
+    message: "Field input type does not match field name"
+  ) @check(
+    expr: "!response.query.formFields[0].required || (response.query.formFields[0].name == 'firstName' && vars.label == 'Nombre') || (response.query.formFields[0].name == 'lastName' && vars.label == 'Apellidos') || (response.query.formFields[0].name == 'birthDate' && vars.label == 'Fecha de nacimiento') || (response.query.formFields[0].name == 'nationalId' && vars.label == 'DNI')"
+    message: "Universal field label cannot be changed"
+  ) {
+    users(where: { firebaseUid: { eq_expr: "auth.uid" }, status: { eq: ACTIVE } }, limit: 1) {
+      clubMembers_on_user(where: { clubId: { eq: $clubId }, status: { eq: ACTIVE } }, limit: 1) { id }
+    }
+    formFields(where: { id: { eq: $fieldId }, formId: { eq: $formId }, clubId: { eq: $clubId } }, limit: 1) {
+      id
+      name
+      required
+    }
+  }
+  formField_update(id: $fieldId, data: {
+    label: $label
+    fieldType: $fieldType
+    status: $status
+    options: $options
+    config: $config
+    updatedAt_expr: "request.time"
+  })
+}
+
+mutation DeleteOptionalFormField($clubId: UUID!, $formId: UUID!, $fieldId: UUID!)
+  @auth(level: USER) @transaction {
+  query @redact @check(
+    expr: "response.query.users.size() == 1 && response.query.users[0].clubMembers_on_user.size() == 1 && response.query.formFields.size() == 1"
+    message: "Optional field access denied"
+  ) {
+    users(where: { firebaseUid: { eq_expr: "auth.uid" }, status: { eq: ACTIVE } }, limit: 1) {
+      clubMembers_on_user(where: { clubId: { eq: $clubId }, status: { eq: ACTIVE } }, limit: 1) { id }
+    }
+    formFields(where: {
+      id: { eq: $fieldId }
+      formId: { eq: $formId }
+      clubId: { eq: $clubId }
+      required: { eq: false }
+    }, limit: 1) { id }
+  }
+  formField_delete(id: $fieldId)
+}
+
+mutation ReorderFormField(
+  $clubId: UUID!
+  $formId: UUID!
+  $fieldId: UUID!
+  $position: Int!
+) @auth(level: USER) @transaction {
+  query @redact @check(
+    expr: "response.query.users.size() == 1 && response.query.users[0].clubMembers_on_user.size() == 1 && response.query.formFields.size() == 1"
+    message: "Field access denied"
+  ) {
+    users(where: { firebaseUid: { eq_expr: "auth.uid" }, status: { eq: ACTIVE } }, limit: 1) {
+      clubMembers_on_user(where: { clubId: { eq: $clubId }, status: { eq: ACTIVE } }, limit: 1) { id }
+    }
+    formFields(where: { id: { eq: $fieldId }, formId: { eq: $formId }, clubId: { eq: $clubId } }, limit: 1) { id }
+  }
+  formField_update(id: $fieldId, data: {
+    position: $position
+    updatedAt_expr: "request.time"
+  })
+}

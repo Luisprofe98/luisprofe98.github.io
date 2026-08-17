@@ -1,0 +1,30 @@
+# LOCAL P0.11 PROMPT 2 STATE TESTS ONLY
+# DO NOT USE AS PRODUCTION CONNECTOR
+
+mutation LocalP02DeactivateDemoForm @transaction {
+  form_update(
+    id: "10000000-0000-4000-8000-000000000015"
+    data: { status: INACTIVE, updatedAt_expr: "request.time" }
+  )
+}
+
+mutation LocalP02ActivateDemoForm @transaction {
+  form_update(
+    id: "10000000-0000-4000-8000-000000000015"
+    data: { status: ACTIVE, updatedAt_expr: "request.time" }
+  )
+}
+
+query LocalP02SubmittedInscription {
+  inscriptions(
+    where: {
+      formId: { eq: "10000000-0000-4000-8000-000000000015" }
+    }
+  ) {
+    id
+    clubId
+    formId
+    status
+    submittedData
+  }
+}

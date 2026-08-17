@@ -1,0 +1,9 @@
+{
+  "publicSlug": "demo-deportista-10000000",
+  "submittedData": {
+    "firstName": "P02Frontend",
+    "lastName": "Persistencia",
+    "birthDate": "2000-01-02",
+    "nationalId": "P02TEST"
+  }
+}

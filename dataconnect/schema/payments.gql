@@ -1,0 +1,84 @@
+type FeePlan
+  @table(name: "fee_plans", key: "id")
+  @unique(fields: ["id", "clubId"])
+  @unique(fields: ["clubId", "seasonId", "name"])
+{
+  id: UUID! @default(expr: "uuidV4()")
+  club: Club! @ref(fields: "clubId")
+  clubId: UUID! @col(name: "club_id")
+  season: Season! @ref(fields: ["seasonId", "clubId"], references: ["id", "clubId"])
+  seasonId: UUID! @col(name: "season_id")
+  name: String!
+  amount: Float! @col(dataType: "numeric(14,2)")
+  periodicity: String!
+  targetType: String! @col(name: "target_type")
+  startDate: Date @col(name: "start_date")
+  endDate: Date @col(name: "end_date")
+  status: String!
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}
+
+type ClubAssociate
+  @table(name: "club_associates", key: "id")
+  @unique(fields: ["id", "clubId"])
+{
+  id: UUID! @default(expr: "uuidV4()")
+  club: Club! @ref(fields: "clubId")
+  clubId: UUID! @col(name: "club_id")
+  sourceInscription: Inscription
+    @ref(fields: ["sourceInscriptionId", "clubId"], references: ["id", "clubId"])
+  sourceInscriptionId: UUID @col(name: "source_inscription_id") @unique
+  firstName: String! @col(name: "first_name")
+  lastName: String! @col(name: "last_name")
+  nationalId: String! @col(name: "national_id")
+  birthDate: Date! @col(name: "birth_date")
+  phone: String
+  email: String
+  address: String
+  joinedOn: Date! @col(name: "joined_on")
+  status: String!
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}
+
+type FeeAssignment
+  @table(name: "fee_assignments", key: "id")
+  @unique(fields: ["id", "clubId"])
+{
+  id: UUID! @default(expr: "uuidV4()")
+  club: Club! @ref(fields: "clubId")
+  clubId: UUID! @col(name: "club_id")
+  feePlan: FeePlan! @ref(fields: ["feePlanId", "clubId"], references: ["id", "clubId"])
+  feePlanId: UUID! @col(name: "fee_plan_id")
+  player: Player @ref(fields: "playerId")
+  playerId: UUID @col(name: "player_id")
+  associate: ClubAssociate @ref(fields: "associateId")
+  associateId: UUID @col(name: "associate_id")
+  dueDate: Date! @col(name: "due_date")
+  amountDue: Float! @col(name: "amount_due", dataType: "numeric(14,2)")
+  status: String!
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}
+
+type Payment
+  @table(name: "payments", key: "id")
+  @unique(fields: ["provider", "externalPaymentId"])
+{
+  id: UUID! @default(expr: "uuidV4()")
+  club: Club! @ref(fields: "clubId")
+  clubId: UUID! @col(name: "club_id")
+  feeAssignment: FeeAssignment! @ref(fields: ["feeAssignmentId", "clubId"], references: ["id", "clubId"])
+  feeAssignmentId: UUID! @col(name: "fee_assignment_id")
+  movement: Movement @unique @ref(fields: "movementId")
+  movementId: UUID @col(name: "movement_id")
+  amount: Float! @col(dataType: "numeric(14,2)")
+  status: PaymentStatus!
+  provider: String
+  externalPaymentId: String @col(name: "external_payment_id")
+  providerMetadata: Any @col(name: "provider_metadata")
+  paidAt: Timestamp @col(name: "paid_at")
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}

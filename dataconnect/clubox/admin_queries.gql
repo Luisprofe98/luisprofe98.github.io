@@ -1,0 +1,135 @@
+query GetCurrentUser @auth(level: USER) {
+  users(
+    where: { firebaseUid: { eq_expr: "auth.uid" }, status: { eq: ACTIVE } }
+    limit: 1
+  ) {
+    id
+    name
+    email
+    systemRole
+    status
+    clubMembers_on_user(
+      where: { status: { eq: ACTIVE } }
+      orderBy: [{ clubId: ASC }]
+    ) {
+      id
+      role
+      status
+      club {
+        id
+        name
+        status
+      }
+    }
+  }
+}
+
+query ListForms($clubId: UUID!) @auth(level: USER) {
+  users(
+    where: { firebaseUid: { eq_expr: "auth.uid" }, status: { eq: ACTIVE } }
+    limit: 1
+  ) {
+    clubMembers_on_user(
+      where: { clubId: { eq: $clubId }, status: { eq: ACTIVE } }
+      limit: 1
+    ) {
+      club {
+        forms_on_club(orderBy: [{ updatedAt: DESC }]) {
+          id
+          name
+          formType
+          status
+          publicSlug
+          createdAt
+          updatedAt
+          inscriptions_on_form {
+            _count
+          }
+        }
+      }
+    }
+  }
+}
+
+query GetForm($clubId: UUID!, $formId: UUID!) @auth(level: USER) {
+  users(
+    where: { firebaseUid: { eq_expr: "auth.uid" }, status: { eq: ACTIVE } }
+    limit: 1
+  ) {
+    clubMembers_on_user(
+      where: { clubId: { eq: $clubId }, status: { eq: ACTIVE } }
+      limit: 1
+    ) {
+      club {
+        forms_on_club(where: { id: { eq: $formId } }, limit: 1) {
+          id
+          name
+          formType
+          status
+          publicSlug
+          createdAt
+          updatedAt
+          formFields_on_form(orderBy: [{ position: ASC }]) {
+            id
+            name
+            label
+            fieldType
+            required
+            position
+            status
+            options
+            config
+          }
+        }
+      }
+    }
+  }
+}
+
+query GetFormFields($clubId: UUID!, $formId: UUID!) @auth(level: USER) {
+  users(
+    where: { firebaseUid: { eq_expr: "auth.uid" }, status: { eq: ACTIVE } }
+    limit: 1
+  ) {
+    clubMembers_on_user(
+      where: { clubId: { eq: $clubId }, status: { eq: ACTIVE } }
+      limit: 1
+    ) {
+      club {
+        forms_on_club(where: { id: { eq: $formId } }, limit: 1) {
+          formFields_on_form(orderBy: [{ position: ASC }]) {
+            id
+            name
+            label
+            fieldType
+            required
+            position
+            status
+            options
+            config
+          }
+        }
+      }
+    }
+  }
+}
+
+query CountFormInscriptions($clubId: UUID!, $formId: UUID!) @auth(level: USER) {
+  users(
+    where: { firebaseUid: { eq_expr: "auth.uid" }, status: { eq: ACTIVE } }
+    limit: 1
+  ) {
+    clubMembers_on_user(
+      where: { clubId: { eq: $clubId }, status: { eq: ACTIVE } }
+      limit: 1
+    ) {
+      club {
+        forms_on_club(where: { id: { eq: $formId } }, limit: 1) {
+          inscriptions_on_form {
+            _count
+          }
+        }
+      }
+    }
+  }
+}

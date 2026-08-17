@@ -1,0 +1,53 @@
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum ClubStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum MembershipStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum SystemRole {
+  SUPER_ADMIN
+}
+
+enum ClubRole {
+  CLUB_ADMIN
+  CLUB_STAFF
+}
+
+enum InscriptionStatus {
+  RECIBIDA
+  APROBADA
+  RECHAZADA
+}
+
+enum FormType {
+  DEPORTISTA
+  SOCIO
+  TORNEO
+  EVENTO
+  VOLUNTARIO
+}
+
+enum FormStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum MovementType {
+  INCOME
+  EXPENSE
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+}

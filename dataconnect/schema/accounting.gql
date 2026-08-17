@@ -1,0 +1,42 @@
+type BudgetItem
+  @table(name: "budget_items", key: "id")
+  @unique(fields: ["id", "clubId"])
+  @unique(fields: ["id", "clubId", "seasonId", "itemType"])
+  @unique(fields: ["clubId", "seasonId", "itemType", "name"])
+{
+  id: UUID! @default(expr: "uuidV4()")
+  club: Club! @ref(fields: "clubId")
+  clubId: UUID! @col(name: "club_id")
+  season: Season! @ref(fields: ["seasonId", "clubId"], references: ["id", "clubId"])
+  seasonId: UUID! @col(name: "season_id")
+  itemType: MovementType! @col(name: "item_type")
+  name: String!
+  status: String!
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}
+
+type Movement
+  @table(name: "movements", key: "id")
+  @unique(fields: ["id", "clubId"])
+{
+  id: UUID! @default(expr: "uuidV4()")
+  club: Club! @ref(fields: "clubId")
+  clubId: UUID! @col(name: "club_id")
+  season: Season! @ref(fields: ["seasonId", "clubId"], references: ["id", "clubId"])
+  seasonId: UUID! @col(name: "season_id")
+  budgetItem: BudgetItem! @ref(
+    fields: ["budgetItemId", "clubId", "seasonId", "movementType"]
+    references: ["id", "clubId", "seasonId", "itemType"]
+  )
+  budgetItemId: UUID! @col(name: "budget_item_id")
+  player: Player @ref(fields: "playerId")
+  playerId: UUID @col(name: "player_id")
+  movementType: MovementType! @col(name: "movement_type")
+  movementDate: Date! @col(name: "movement_date")
+  amount: Float! @col(dataType: "numeric(14,2)")
+  concept: String
+  paymentMethod: String! @col(name: "payment_method")
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}

@@ -1,0 +1,71 @@
+type Form
+  @table(name: "forms", key: "id")
+  @unique(fields: ["id", "clubId"])
+  @unique(fields: ["clubId", "publicSlug"])
+{
+  id: UUID! @default(expr: "uuidV4()")
+  club: Club! @ref(fields: "clubId")
+  clubId: UUID! @col(name: "club_id")
+  name: String!
+  formType: FormType! @col(name: "form_type")
+  status: FormStatus!
+  publicSlug: String! @col(name: "public_slug") @unique
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}
+
+type FormField
+  @table(name: "form_fields", key: "id")
+  @unique(fields: ["formId", "name"])
+{
+  id: UUID! @default(expr: "uuidV4()")
+  club: Club! @ref(fields: "clubId")
+  clubId: UUID! @col(name: "club_id")
+  form: Form! @ref(fields: ["formId", "clubId"], references: ["id", "clubId"])
+  formId: UUID! @col(name: "form_id")
+  name: String!
+  label: String!
+  fieldType: String! @col(name: "field_type")
+  required: Boolean!
+  position: Int!
+  status: FormStatus!
+  options: Any
+  config: Any
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}
+
+type Inscription
+  @table(name: "inscriptions", key: "id")
+  @unique(fields: ["id", "clubId"])
+{
+  id: UUID! @default(expr: "uuidV4()")
+  club: Club! @ref(fields: "clubId")
+  clubId: UUID! @col(name: "club_id")
+  form: Form! @ref(fields: ["formId", "clubId"], references: ["id", "clubId"])
+  formId: UUID! @col(name: "form_id")
+  status: InscriptionStatus!
+  submittedData: Any! @col(name: "submitted_data")
+  internalNotes: String @col(name: "internal_notes")
+  submittedAt: Timestamp! @col(name: "submitted_at") @default(expr: "request.time")
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}
+
+type Document @table(name: "documents", key: "id") {
+  id: UUID! @default(expr: "uuidV4()")
+  club: Club! @ref(fields: "clubId")
+  clubId: UUID! @col(name: "club_id")
+  inscription: Inscription @ref(fields: "inscriptionId")
+  inscriptionId: UUID @col(name: "inscription_id")
+  player: Player @ref(fields: "playerId")
+  playerId: UUID @col(name: "player_id")
+  documentType: String! @col(name: "document_type")
+  fileName: String! @col(name: "file_name")
+  mimeType: String! @col(name: "mime_type")
+  storagePath: String! @col(name: "storage_path") @unique
+  sizeBytes: Int64! @col(name: "size_bytes")
+  status: String!
+  createdAt: Timestamp! @col(name: "created_at") @default(expr: "request.time")
+  updatedAt: Timestamp! @col(name: "updated_at") @default(expr: "request.time")
+}

@@ -1,0 +1,156 @@
+mutation CreateForm(
+  $clubId: UUID!
+  $name: String!
+  $formType: FormType!
+  $publicSlug: String!
+) @auth(level: USER) @transaction {
+  query
+    @redact
+    @check(
+      expr: "response.query.users.size() == 1 && response.query.users[0].clubMembers_on_user.size() == 1"
+      message: "Active club membership required"
+    ) {
+    users(
+      where: { firebaseUid: { eq_expr: "auth.uid" }, status: { eq: ACTIVE } }
+      limit: 1
+    ) {
+      clubMembers_on_user(
+        where: { clubId: { eq: $clubId }, status: { eq: ACTIVE } }
+        limit: 1
+      ) { id }
+    }
+  }
+  form: form_insert(data: {
+    id_expr: "uuidV4()"
+    clubId: $clubId
+    name: $name
+    formType: $formType
+    status: INACTIVE
+    publicSlug: $publicSlug
+  })
+  firstName: formField_insert(data: {
+    clubId: $clubId
+    formId_expr: "response.form.id"
+    name: "firstName"
+    label: "Nombre"
+    fieldType: "text"
+    required: true
+    position: 0
+    status: ACTIVE
+  })
+  lastName: formField_insert(data: {
+    clubId: $clubId
+    formId_expr: "response.form.id"
+    name: "lastName"
+    label: "Apellidos"
+    fieldType: "text"
+    required: true
+    position: 1
+    status: ACTIVE
+  })
+  birthDate: formField_insert(data: {
+    clubId: $clubId
+    formId_expr: "response.form.id"
+    name: "birthDate"
+    label: "Fecha de nacimiento"
+    fieldType: "date"
+    required: true
+    position: 2
+    status: ACTIVE
+  })
+  nationalId: formField_insert(data: {
+    clubId: $clubId
+    formId_expr: "response.form.id"
+    name: "nationalId"
+    label: "DNI"
+    fieldType: "text"
+    required: true
+    position: 3
+    status: ACTIVE
+  })
+}
+
+mutation UpdateForm(
+  $clubId: UUID!
+  $formId: UUID!
+  $name: String!
+  $formType: FormType!
+  $publicSlug: String!
+) @auth(level: USER) @transaction {
+  query @redact @check(
+    expr: "response.query.users.size() == 1 && response.query.users[0].clubMembers_on_user.size() == 1 && response.query.forms.size() == 1"
+    message: "Form access denied"
+  ) @check(
+    expr: "response.query.forms[0].formFields_on_form.all(field, field.name in ['firstName', 'lastName', 'birthDate', 'nationalId'] || (vars.formType in ['DEPORTISTA', 'SOCIO'] && field.name in ['phone', 'email', 'address']) || (vars.formType == 'TORNEO' && field.name in ['phone', 'email', 'clubOrigin', 'teamName', 'category', 'notes']) || (vars.formType == 'EVENTO' && field.name in ['phone', 'email', 'address', 'organization', 'notes']) || (vars.formType == 'VOLUNTARIO' && field.name in ['phone', 'email', 'address', 'availability', 'experience', 'notes']))"
+    message: "Configured fields do not belong to target form type"
+  ) {
+    users(where: { firebaseUid: { eq_expr: "auth.uid" }, status: { eq: ACTIVE } }, limit: 1) {
+      clubMembers_on_user(where: { clubId: { eq: $clubId }, status: { eq: ACTIVE } }, limit: 1) { id }
+    }
+    forms(where: { id: { eq: $formId }, clubId: { eq: $clubId } }, limit: 1) {
+      id
+      formFields_on_form { name }
+    }
+  }
+  form_update(id: $formId, data: {
+    name: $name
+    formType: $formType
+    publicSlug: $publicSlug
+    updatedAt_expr: "request.time"
+  })
+}
+
+mutation ResetFormType(
+  $clubId: UUID!
+  $formId: UUID!
+  $name: String!
+  $formType: FormType!
+  $publicSlug: String!
+) @auth(level: USER) @transaction {
+  query @redact @check(
+    expr: "response.query.users.size() == 1 && response.query.users[0].clubMembers_on_user.size() == 1 && response.query.forms.size() == 1"
+    message: "Form access denied"
+  ) {
+    users(where: { firebaseUid: { eq_expr: "auth.uid" }, status: { eq: ACTIVE } }, limit: 1) {
+      clubMembers_on_user(where: { clubId: { eq: $clubId }, status: { eq: ACTIVE } }, limit: 1) { id }
+    }
+    forms(where: { id: { eq: $formId }, clubId: { eq: $clubId } }, limit: 1) { id }
+  }
+  formField_deleteMany(where: {
+    formId: { eq: $formId }
+    clubId: { eq: $clubId }
+    required: { eq: false }
+  })
+  form_update(id: $formId, data: {
+    name: $name
+    formType: $formType
+    publicSlug: $publicSlug
+    updatedAt_expr: "request.time"
+  })
+}
+
+mutation ActivateForm($clubId: UUID!, $formId: UUID!) @auth(level: USER) @transaction {
+  query @redact @check(
+    expr: "response.query.users.size() == 1 && response.query.users[0].clubMembers_on_user.size() == 1 && response.query.forms.size() == 1"
+    message: "Form access denied"
+  ) {
+    users(where: { firebaseUid: { eq_expr: "auth.uid" }, status: { eq: ACTIVE } }, limit: 1) {
+      clubMembers_on_user(where: { clubId: { eq: $clubId }, status: { eq: ACTIVE } }, limit: 1) { id }
+    }
+    forms(where: { id: { eq: $formId }, clubId: { eq: $clubId } }, limit: 1) { id }
+  }
+  form_update(id: $formId, data: { status: ACTIVE, updatedAt_expr: "request.time" })
+}
+
+mutation DeactivateForm($clubId: UUID!, $formId: UUID!) @auth(level: USER) @transaction {
+  query @redact @check(
+    expr: "response.query.users.size() == 1 && response.query.users[0].clubMembers_on_user.size() == 1 && response.query.forms.size() == 1"
+    message: "Form access denied"
+  ) {
+    users(where: { firebaseUid: { eq_expr: "auth.uid" }, status: { eq: ACTIVE } }, limit: 1) {
+      clubMembers_on_user(where: { clubId: { eq: $clubId }, status: { eq: ACTIVE } }, limit: 1) { id }
+    }
+    forms(where: { id: { eq: $formId }, clubId: { eq: $clubId } }, limit: 1) { id }
+  }
+  form_update(id: $formId, data: { status: INACTIVE, updatedAt_expr: "request.time" })
+}

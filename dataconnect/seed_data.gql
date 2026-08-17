@@ -1,0 +1,306 @@
+# LOCAL TEST DATA ONLY
+# DO NOT DEPLOY AS PRODUCTION DATA
+
+# LOCAL TEST 01 - Create Club
+mutation LocalTest01CreateClub @transaction {
+  club_upsert(
+    data: {
+      id: "11111111-1111-4111-8111-111111111111"
+      name: "Clubox Demo"
+      status: ACTIVE
+    }
+  )
+}
+
+# LOCAL TEST 02 - Create Season
+mutation LocalTest02CreateSeason @transaction {
+  season_upsert(
+    data: {
+      id: "22222222-2222-4222-8222-222222222222"
+      clubId: "11111111-1111-4111-8111-111111111111"
+      name: "2026/2027"
+      startDate: "2026-07-01"
+      endDate: "2027-06-30"
+      status: "active"
+    }
+  )
+}
+
+# LOCAL TEST 03 - Create User
+mutation LocalTest03CreateUser @transaction {
+  user_upsert(
+    data: {
+      id: "33333333-3333-4333-8333-333333333333"
+      firebaseUid: "local-test-firebase-uid"
+      email: "admin.local@clubox.test"
+      name: "Admin Local"
+      systemRole: SUPER_ADMIN
+      status: ACTIVE
+    }
+  )
+}
+
+# LOCAL TEST 04 - Create ClubMember
+mutation LocalTest04CreateClubMember @transaction {
+  clubMember_upsert(
+    data: {
+      id: "77777777-7777-4777-8777-777777777777"
+      userId: "33333333-3333-4333-8333-333333333333"
+      clubId: "11111111-1111-4111-8111-111111111111"
+      role: CLUB_ADMIN
+      status: ACTIVE
+    }
+  )
+}
+
+# LOCAL TEST 05 - Create Player
+mutation LocalTest05CreatePlayer @transaction {
+  player_upsert(
+    data: {
+      id: "44444444-4444-4444-8444-444444444444"
+      clubId: "11111111-1111-4111-8111-111111111111"
+      firstName: "Test"
+      lastName: "Player"
+      nationalId: "11111111H"
+      birthDate: "2000-01-01"
+      joinedOn: "2026-07-01"
+      status: "active"
+    }
+  )
+}
+
+# LOCAL TEST 06 - Create Team
+mutation LocalTest06CreateTeam @transaction {
+  team_upsert(
+    data: {
+      id: "55555555-5555-4555-8555-555555555555"
+      clubId: "11111111-1111-4111-8111-111111111111"
+      seasonId: "22222222-2222-4222-8222-222222222222"
+      name: "Senior Test"
+      status: "active"
+    }
+  )
+}
+
+# LOCAL TEST 07 - Create PlayerTeam
+mutation LocalTest07CreatePlayerTeam @transaction {
+  playerTeam_upsert(
+    data: {
+      playerId: "44444444-4444-4444-8444-444444444444"
+      teamId: "55555555-5555-4555-8555-555555555555"
+      clubId: "11111111-1111-4111-8111-111111111111"
+      seasonId: "22222222-2222-4222-8222-222222222222"
+      status: "active"
+    }
+  )
+}
+
+# LOCAL TEST 08 - Create Staff
+mutation LocalTest08CreateStaff @transaction {
+  staff_upsert(
+    data: {
+      id: "66666666-6666-4666-8666-666666666666"
+      clubId: "11111111-1111-4111-8111-111111111111"
+      firstName: "Test"
+      lastName: "Staff"
+      status: "active"
+    }
+  )
+}
+
+# LOCAL TEST 09 - Create StaffTeam
+mutation LocalTest09CreateStaffTeam @transaction {
+  staffTeam_upsert(
+    data: {
+      staffId: "66666666-6666-4666-8666-666666666666"
+      teamId: "55555555-5555-4555-8555-555555555555"
+      clubId: "11111111-1111-4111-8111-111111111111"
+      seasonId: "22222222-2222-4222-8222-222222222222"
+      role: "entrenador"
+      status: "active"
+    }
+  )
+}
+
+# LOCAL QA 10 - Create Rival Club
+mutation LocalQa10CreateRivalClub @transaction {
+  club_upsert(
+    data: {
+      id: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa"
+      name: "Clubox Rival"
+      status: ACTIVE
+    }
+  )
+}
+
+# LOCAL QA 11 - Create Rival Player
+mutation LocalQa11CreateRivalPlayer @transaction {
+  player_upsert(
+    data: {
+      id: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb"
+      clubId: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa"
+      firstName: "Rival"
+      lastName: "Player"
+      nationalId: "22222222J"
+      birthDate: "2001-02-02"
+      joinedOn: "2026-07-01"
+      status: "active"
+    }
+  )
+}
+
+# LOCAL QA 12 - Create PlayerSeason
+mutation LocalQa12CreatePlayerSeason @transaction {
+  playerSeason_upsert(
+    data: {
+      playerId: "44444444-4444-4444-8444-444444444444"
+      seasonId: "22222222-2222-4222-8222-222222222222"
+      clubId: "11111111-1111-4111-8111-111111111111"
+      status: "active"
+    }
+  )
+}
+
+# LOCAL FORM 13 - Rival user
+mutation LocalForm13CreateRivalUser @transaction {
+  user_upsert(data: {
+    id: "13333333-3333-4333-8333-333333333333"
+    firebaseUid: "local-rival-firebase-uid"
+    email: "admin.rival@clubox.test"
+    name: "Admin Rival"
+    status: ACTIVE
+  })
+}
+
+# LOCAL FORM 14 - Rival membership
+mutation LocalForm14CreateRivalMember @transaction {
+  clubMember_upsert(data: {
+    id: "17777777-7777-4777-8777-777777777777"
+    userId: "13333333-3333-4333-8333-333333333333"
+    clubId: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa"
+    role: CLUB_ADMIN
+    status: ACTIVE
+  })
+}
+
+# LOCAL FORM 15 - Demo form
+mutation LocalForm15CreateDemoForm @transaction {
+  form_upsert(data: {
+    id: "10000000-0000-4000-8000-000000000015"
+    clubId: "11111111-1111-4111-8111-111111111111"
+    name: "Alta deportista"
+    formType: DEPORTISTA
+    status: ACTIVE
+    publicSlug: "demo-deportista-10000000"
+  })
+}
+
+# LOCAL FORM 16-19 - Universal fields
+mutation LocalForm16CreateFirstName @transaction {
+  formField_upsert(data: {
+    id: "10000000-0000-4000-8000-000000000016"
+    clubId: "11111111-1111-4111-8111-111111111111"
+    formId: "10000000-0000-4000-8000-000000000015"
+    name: "firstName"
+    label: "Nombre"
+    fieldType: "text"
+    required: true
+    position: 0
+    status: ACTIVE
+  })
+}
+
+mutation LocalForm17CreateLastName @transaction {
+  formField_upsert(data: {
+    id: "10000000-0000-4000-8000-000000000017"
+    clubId: "11111111-1111-4111-8111-111111111111"
+    formId: "10000000-0000-4000-8000-000000000015"
+    name: "lastName"
+    label: "Apellidos"
+    fieldType: "text"
+    required: true
+    position: 1
+    status: ACTIVE
+  })
+}
+
+mutation LocalForm18CreateBirthDate @transaction {
+  formField_upsert(data: {
+    id: "10000000-0000-4000-8000-000000000018"
+    clubId: "11111111-1111-4111-8111-111111111111"
+    formId: "10000000-0000-4000-8000-000000000015"
+    name: "birthDate"
+    label: "Fecha de nacimiento"
+    fieldType: "date"
+    required: true
+    position: 2
+    status: ACTIVE
+  })
+}
+
+mutation LocalForm19CreateNationalId @transaction {
+  formField_upsert(data: {
+    id: "10000000-0000-4000-8000-000000000019"
+    clubId: "11111111-1111-4111-8111-111111111111"
+    formId: "10000000-0000-4000-8000-000000000015"
+    name: "nationalId"
+    label: "DNI"
+    fieldType: "text"
+    required: true
+    position: 3
+    status: ACTIVE
+  })
+}
+
+# LOCAL FORM 20 - Club associate
+mutation LocalForm20CreateAssociate @transaction {
+  clubAssociate_upsert(data: {
+    id: "10000000-0000-4000-8000-000000000020"
+    clubId: "11111111-1111-4111-8111-111111111111"
+    firstName: "Test"
+    lastName: "Associate"
+    nationalId: "33333333P"
+    birthDate: "1980-03-03"
+    joinedOn: "2026-07-01"
+    status: "active"
+  })
+}
+
+# LOCAL FORM 21 - Tournament entry
+mutation LocalForm21CreateTournamentEntry @transaction {
+  tournamentEntry_upsert(data: {
+    id: "10000000-0000-4000-8000-000000000021"
+    clubId: "11111111-1111-4111-8111-111111111111"
+    firstName: "Test"
+    lastName: "Tournament"
+    nationalId: "44444444A"
+    birthDate: "1995-04-04"
+    category: "Senior"
+    status: "active"
+  })
+}
+
+# LOCAL FORM 22 - Event attendee
+mutation LocalForm22CreateEventAttendee @transaction {
+  eventAttendee_upsert(data: {
+    id: "10000000-0000-4000-8000-000000000022"
+    clubId: "11111111-1111-4111-8111-111111111111"
+    firstName: "Test"
+    lastName: "Event"
+    nationalId: "55555555R"
+    birthDate: "1990-05-05"
+    organization: "Clubox"
+    status: "active"
+  })
+}
+
+# LOCAL AUTH 23 - Active user without club membership
+mutation LocalAuth23CreateUserWithoutClub @transaction {
+  user_upsert(data: {
+    id: "23333333-3333-4333-8333-333333333333"
+    firebaseUid: "local-no-club-firebase-uid"
+    email: "noclub.local@clubox.test"
+    name: "No Club Local"
+    status: ACTIVE
+  })
+}
