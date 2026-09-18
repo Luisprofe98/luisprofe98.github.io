@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Aprende los fundamentos de Python con 14 módulos, ejercicios, retos y cuestionarios para 2º de ASIR. Todo en tu navegador.">
+  <meta name="theme-color" content="#0c1017">
+  <title>PyLab ASIR · Fundamentos de Python</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script>
+    try { const theme=localStorage.getItem('pylab-asir-theme'); if(theme==='light'||theme==='dark') document.documentElement.dataset.theme=theme; } catch (_) {}
+  </script>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/content.css">
+  <link rel="stylesheet" href="css/lab.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <script defer src="data/catalog.js"></script>
+  <script defer src="data/lessons/m01.js"></script>
+  <script defer src="data/lessons/m02.js"></script>
+  <script defer src="data/lessons/m03.js"></script>
+  <script defer src="data/lessons/m04.js"></script>
+  <script defer src="data/lessons/m05.js"></script>
+  <script defer src="data/lessons/m06.js"></script>
+  <script defer src="data/lessons/m07.js"></script>
+  <script defer src="data/lessons/m08.js"></script>
+  <script defer src="data/lessons/m09.js"></script>
+  <script defer src="data/lessons/m10.js"></script>
+  <script defer src="data/lessons/m11.js"></script>
+  <script defer src="data/lessons/m12.js"></script>
+  <script defer src="data/lessons/m13.js"></script>
+  <script defer src="data/lessons/m14.js"></script>
+  <script defer src="data/exercises/m01.js"></script>
+  <script defer src="data/exercises/m02.js"></script>
+  <script defer src="data/exercises/m03.js"></script>
+  <script defer src="data/exercises/m04.js"></script>
+  <script defer src="data/exercises/m05.js"></script>
+  <script defer src="data/exercises/m06.js"></script>
+  <script defer src="data/exercises/m07.js"></script>
+  <script defer src="data/exercises/m08.js"></script>
+  <script defer src="data/exercises/m09.js"></script>
+  <script defer src="data/exercises/m10.js"></script>
+  <script defer src="data/exercises/m11.js"></script>
+  <script defer src="data/exercises/m12.js"></script>
+  <script defer src="data/exercises/m13.js"></script>
+  <script defer src="data/exercises/m14.js"></script>
+  <script defer src="data/quizzes/m01.js"></script>
+  <script defer src="data/quizzes/m02.js"></script>
+  <script defer src="data/quizzes/m03.js"></script>
+  <script defer src="data/quizzes/m04.js"></script>
+  <script defer src="data/quizzes/m05.js"></script>
+  <script defer src="data/quizzes/m06.js"></script>
+  <script defer src="data/quizzes/m07.js"></script>
+  <script defer src="data/quizzes/m08.js"></script>
+  <script defer src="data/quizzes/m09.js"></script>
+  <script defer src="data/quizzes/m10.js"></script>
+  <script defer src="data/quizzes/m11.js"></script>
+  <script defer src="data/quizzes/m12.js"></script>
+  <script defer src="data/quizzes/m13.js"></script>
+  <script defer src="data/quizzes/m14.js"></script>
+  <script defer src="data/challenges.js"></script>
+  <script defer src="data/predictions.js"></script>
+  <script defer src="data/bugs.js"></script>
+  <script defer src="data/samples.js"></script>
+  <script defer src="js/utils.js"></script>
+  <script defer src="js/progress.js"></script>
+  <script defer src="js/views-course.js"></script>
+  <script defer src="js/views-practice.js"></script>
+  <script defer src="js/quiz.js"></script>
+  <script defer src="js/views-tools.js"></script>
+  <script defer src="js/worker-source.js"></script>
+  <script defer src="js/lab.js"></script>
+  <script defer src="js/search.js"></script>
+  <script defer src="js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content" data-scroll="main-content">Saltar al contenido</a>
+  <aside class="sidebar" id="sidebar" aria-label="Navegación del curso">
+    <a class="brand" href="#/home" aria-label="PyLab ASIR, inicio"><span class="brand-mark" aria-hidden="true">&gt;_</span><span><span class="brand-name">PyLab<span style="color:var(--accent)">.</span></span><span class="brand-sub">PYTHON PARA ASIR</span></span></a>
+    <nav aria-label="Principal"><p class="nav-heading">APRENDIZAJE</p>
+<a class="nav-link" data-route="home" href="#/home"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3zM9 20v-7h6v7"/></svg><span>Inicio</span></a>
+<a class="nav-link" data-route="modules" href="#/modules"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 10 5-10 5L2 8zM2 12l10 5 10-5M2 16l10 5 10-5"/></svg><span>Temario</span><span class="count">14</span></a>
+<a class="nav-link" data-route="lessons" href="#/lessons"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5c-3-2-7-2-10-1v15c3-1 7-1 10 1 3-2 7-2 10-1V4c-3-1-7-1-10 1zM12 5v15"/></svg><span>Lecciones</span><span class="count">28</span></a>
+<a class="nav-link" data-route="exercises" href="#/exercises"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 5-6 7 6 7m8-14 6 7-6 7M14 3l-4 18"/></svg><span>Ejercicios</span><span class="count">56</span></a>
+<a class="nav-link" data-route="challenges" href="#/challenges"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 22V3m0 1c5-4 9 4 15 0v10c-6 4-10-4-15 0"/></svg><span>Retos</span><span class="count">12</span></a>
+<a class="nav-link" data-route="quizzes" href="#/quizzes"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="15" height="19" rx="2"/><path d="M9 8h7M9 13h7M9 18h4"/></svg><span>Quiz</span></a>
+<p class="nav-heading">HERRAMIENTAS</p>
+<a class="nav-link" data-route="lab" href="#/lab"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 7 5 5-5 5m8 0h6"/><rect x="1" y="2" width="22" height="20" rx="3"/></svg><span>Laboratorio</span></a>
+<a class="nav-link" data-route="predict" href="#/predict"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg><span>Predice la salida</span></a>
+<a class="nav-link" data-route="debug" href="#/debug"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="6" width="10" height="15" rx="5"/><path d="M8 7 6 3m10 4 2-4M3 8l4 2m-4 5h4m-4 6 5-3M21 8l-4 2m4 5h-4m4 6-5-3M12 10v11"/></svg><span>Depura código</span></a>
+<a class="nav-link" data-route="cheatsheet" href="#/cheatsheet"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 5-6 7 6 7m8-14 6 7-6 7M14 3l-4 18"/></svg><span>Cheatsheet</span></a>
+<a class="nav-link" data-route="progress" href="#/progress"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18M7 16v-4m5 4V7m5 9V3"/></svg><span>Mi progreso</span></a>
+</nav>
+    <div class="sidebar-footer"><div class="sidebar-progress-label"><span>Tu recorrido</span><strong id="sidebar-percent">0%</strong></div><div class="progress-track" id="sidebar-bar" role="progressbar" aria-label="Progreso global" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span style="width:0%"></span></div><p class="local-note"><span aria-hidden="true">●</span><span id="local-storage-label">Guardado en este navegador</span></p></div>
+  </aside>
+  <button class="nav-overlay" id="nav-overlay" data-action="menu-close" tabindex="-1" aria-label="Cerrar menú"></button>
+  <div class="workspace">
+    <header class="topbar">
+      <button class="icon-btn mobile-toggle" id="menu-toggle" data-action="menu" aria-controls="sidebar" aria-expanded="false" aria-label="Abrir menú"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+      <div class="breadcrumbs"><span>Espacio de aprendizaje</span><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg><strong id="current-page">Inicio</strong></div>
+      <div class="topbar-right"><button class="search-launch" data-action="search" aria-label="Buscar conceptos, ejercicios y retos"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="m15 15 6 6"/></svg><span>Buscar un concepto…</span><kbd>Ctrl K</kbd></button><button class="icon-btn" id="theme-toggle" data-action="theme" aria-label="Cambiar tema"></button><span class="student-avatar" aria-label="Espacio de alumno ASIR">AS</span></div>
+    </header>
+    <main id="main-content" tabindex="-1"><noscript><div class="card"><h1>Activa JavaScript para abrir PyLab ASIR.</h1><p>La navegación, los cuestionarios y el progreso funcionan en el navegador. El código no necesita un servidor.</p></div></noscript></main>
+    <footer class="site-footer"><span>PyLab ASIR · Aprende. Practica. Automatiza.</span><a href="#/about">Guía, privacidad y funcionamiento</a></footer>
+  </div>
+  <dialog id="search-dialog" aria-label="Buscador del curso"><div class="search-box"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="m15 15 6 6"/></svg><label class="sr-only" for="global-search">Buscar en el curso</label><input id="global-search" type="search" placeholder="¿Qué quieres aprender?" autocomplete="off"><button class="icon-btn" data-action="search-close" aria-label="Cerrar buscador">×</button></div><div id="search-results" class="search-results"></div><div class="search-footer" id="search-count" aria-live="polite"></div></dialog>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title" aria-describedby="confirm-message"><div class="dialog-header"><h2 id="confirm-title">Confirmar acción</h2></div><div class="dialog-body"><p id="confirm-message"></p></div><div class="dialog-footer"><button class="btn secondary" id="confirm-cancel" data-action="confirm-cancel">Cancelar</button><button class="btn primary" id="confirm-accept" data-action="confirm-accept">Confirmar</button></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
